@@ -1,0 +1,62 @@
+<!--pages/seeMore/seeMore.wxml-->
+<loading hidden="{{loading}}">
+  页面加载中...
+</loading>
+<!--
+<view hidden="{{!loading}}">
+<view>开始日期</view>
+<picker mode="date" value="{{startDate}}" start="1995-01-01" end="2055-12-31" bindchange="setStartDate">{{startDate}}</picker>
+
+<view>结束日期</view>
+<picker mode="date" value="{{endDate}}" start="1995-01-01" end="2055-12-31" bindchange="setEndDate">{{endDate}}</picker>
+
+<button bindtap="searchDate">查询</button>
+</view>
+
+<import src="../template/list.wxml" />
+<navigator url="../listDetail/listDetail?itemId={{item.id}}" hover-class="navigator-hover" wx:for-items="{{itemList}}" wx:key="itemListId">
+
+<view class="outter">
+  <template is="timeList" data="{{listTitle:item.title,listDate:item.date,listVariety:item.variety,listFinished:item.finished}}" />
+</view>
+
+
+</navigator>
+-->
+
+<view hidden="{{!loading}}" class="timeOut">
+
+<view class="calendarBtn" bindtap="showSheet">
+<image class="btnImage" src="../../static/images/calendar1.png"></image> 
+</view>
+
+<view class="timerShaftBtn" hidden="{{!timerShaft}}" >
+<image class="btnImage" bindtap="timerShaftBtnClick"  src="../../static/images/timerShaft.png"></image>
+</view>
+<import src="../template/list.wxml" />
+<navigator url="../listDetail/listDetail?itemId={{item.id}}" hover-class="navigator-hover" wx:for-items="{{itemList}}" wx:key="itemListId">
+
+<view  hidden="{{!timerShaft||(!hasItems)}}">
+  <template is="timeList" data="{{listTitle:item.title,listDate:item.date,listVariety:item.variety,listFinished:item.finished}}" />
+</view>
+
+
+</navigator>
+
+<view class="diagramBtn" hidden="{{timerShaft}}" >
+<image class="btnImage" bindtap="diagramBtnClick"  src="../../static/images/diagram.png"></image>
+</view>
+
+
+<view class="container" hidden="{{(!hasItems)||(timerShaft)}}" >
+    <text>数目统计</text>
+    <canvas canvas-id="rectCanvas" class="canvas" style="height:400rpx" bindtouchstart="rectTouchHandler"></canvas>
+    <text>扇形图</text>
+    <canvas canvas-id="ringCanvas" class="canvas" bindtouchstart="ringTouchHandler" style="height:640rpx;"></canvas>   
+</view>
+
+<view hidden="{{hasItems}}">无结果</view>
+
+
+
+</view>
